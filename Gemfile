@@ -7,9 +7,10 @@ gem 'factory_girl_rails'
 group :test do
   gem 'capybara'
 end
-group :development do
-  gem 'ruby_gntp'
-end
+#group :development do
+#  gem 'ruby_gntp'
+#end
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
 
