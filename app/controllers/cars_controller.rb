@@ -21,13 +21,13 @@ class CarsController < ApplicationController
     @car = Car.new(car_params)
     #redirect_to cars_path, notice: "#{@car.year} #{@car.make} #{@car.model} created"
 
-    respond_to do |format|
+    respond_to do
       if @car.save
-        format.html { redirect_to @car, notice: 'Car was successfully created.' }
-        format.json { render action: 'index', status: :created, location: @car }
+         redirect_to @car, notice: "#{@car.year} #{@car.make} #{@car.model} created"
+        #format.json { render action: 'index', status: :created, location: @car }
       else
-        format.html { render action: 'new' }
-        format.json { render json: @car.errors, status: :unprocessable_entity }
+        render action: 'new'
+        #format.json { render json: @car.errors, status: :unprocessable_entity }
       end
     end
   end

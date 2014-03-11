@@ -13,13 +13,23 @@ feature "Creating Cars" do
 
     click_button 'Create Car'
 
+    expect(page).to have_content("1967 Ford Mustang created")
+
+    visit '/'
+
     expect(page).to have_content('Year: 1967')
     expect(page).to have_content('Make: Ford')
     expect(page).to have_content('Model: Mustang')
-    expect(page).to have_content('Price: 2300')
+    expect(page).to have_content('Price: $2,300.00')
   end
+
+  #new scenario is a new database
   scenario "can create a second car" do
-      visit "/"
+    @car = Car.create(make: "Chevy", model: "Impala", year: "2002", price: 314.12)
+
+    expect(page).to have_content("2002 Chevy Impala created")
+
+    visit "/"
 
       click_link 'New Car'
 
@@ -30,37 +40,13 @@ feature "Creating Cars" do
 
       click_button 'Create Car'
 
-      expect(page).to have_content
+    expect(page).to have_content("1995 Toyota Camry created")
+
       expect(page).to have_content('Year: 1995')
       expect(page).to have_content('Make: Toyota')
       expect(page).to have_content('Model: Camry')
-      expect(page).to have_content('Price: 2300')
+      expect(page).to have_content('Price: $2,300.00')
   end
 end
 
-#feature "Editing Cars" do
-#  scenario "can edit a car" do
-#    visit "/"
-#
-#    click_link 'New Car'
-#
-#    fill_in 'Year', with: '1995'
-#    fill_in 'Make', with: 'Toyota'
-#    fill_in 'Model', with: 'Camry'
-#    fill_in 'Price', with: '2300'
-#
-#    click_button 'Create Car'
-#
-#    click_link 'Edit'
-#
-#    fill_in 'Year', with: '1996'
-#    fill_in 'Price', with: '2500'
-#
-#    click_button 'Update Car'
-#
-#    expect(page).to have_content('Year: 1996')
-#    expect(page).to have_content('Make: Toyota')
-#    expect(page).to have_content('Model: Camry')
-#    expect(page).to have_content('Price: 2500')
-#  end
-#end
+
