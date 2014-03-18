@@ -17,15 +17,26 @@ feature "Creating Cars" do
 
     visit '/'
 
-    expect(page).to have_content('Year: 1967')
-    expect(page).to have_content('Make: Ford')
-    expect(page).to have_content('Model: Mustang')
-    expect(page).to have_content('Price: $2,300.00')
+    expect(page).to have_content('1967')
+    expect(page).to have_content('Ford')
+    expect(page).to have_content('Mustang')
+    expect(page).to have_content('$2,300.00')
   end
 
   #new scenario is a new database
   scenario "can create a second car" do
-    @car = Car.create(make: "Chevy", model: "Impala", year: "2002", price: 314.12)
+    visit "/"
+
+    click_link 'New Car'
+
+    #@car = Car.create(make: "Chevy", model: "Impala", year: "2002", price: 314.12)
+
+    fill_in 'Year', with: '2002'
+    fill_in 'Make', with: 'Chevy'
+    fill_in 'Model', with: 'Impala'
+    fill_in 'Price', with: '314.12'
+
+    click_button 'Create Car'
 
     expect(page).to have_content("2002 Chevy Impala created")
 
@@ -42,10 +53,6 @@ feature "Creating Cars" do
 
     expect(page).to have_content("1995 Toyota Camry created")
 
-      expect(page).to have_content('Year: 1995')
-      expect(page).to have_content('Make: Toyota')
-      expect(page).to have_content('Model: Camry')
-      expect(page).to have_content('Price: $2,300.00')
   end
 end
 
