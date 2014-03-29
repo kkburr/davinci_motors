@@ -8,7 +8,8 @@ DavinciMotors::Application.routes.draw do
     as: 'login'
 
   post 'login',
-    to: 'sessions#create' #uses same login path as get 'login', so we borrow from that.
+    to: 'sessions#create' #This is a pretty bare branch, but it uses same login path
+  # as get 'login', so we borrow from that.
 
   delete 'logout',
     to: 'sessions#destroy'

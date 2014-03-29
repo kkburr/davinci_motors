@@ -22,10 +22,10 @@ class CarsController < ApplicationController
     #redirect_to cars_path, notice: "#{@car.year} #{@car.make} #{@car.model} created"
     if @car.save
        redirect_to root_path, notice: "#{@car.year} #{@car.make} #{@car.model} created"
-      #format.json { render action: 'index', status: :created, location: @car }
+      format.json { render action: 'index', status: :created, location: @car }
     else
       render action: 'new'
-      #format.json { render json: @car.errors, status: :unprocessable_entity }
+      format.json { render json: @car.errors, status: :unprocessable_entity }
     end
   end
 
