@@ -32,15 +32,15 @@ class CarsController < ApplicationController
     end
   end
 
-  #def unclaim
-  #  @car.user = current_user
-  #  if @car.rollback_active_record_state!
-  #    redirect_to my_cars_path, notice:
-  #        "#{@car.make} #{@car.model} has been moved out of your inventory"
-  #  else
-  #    redirect_to my_cars_path, error: 'Unable to unclaim car.'
-  #  end
-  #end
+  def unclaim
+    @car.user = current_user
+    if @car.rollback_active_record_state!
+      redirect_to my_cars_path, notice:
+          "#{@car.make} #{@car.model} has been moved out of your inventory"
+    else
+      redirect_to my_cars_path, error: 'Unable to unclaim car.'
+    end
+  end
 
   def create
     @car = Car.new(car_params)
