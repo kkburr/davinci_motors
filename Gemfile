@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+gem "omniauth-github"
+gem "byebug"
+
 gem 'rspec-rails'
 gem 'guard-bundler' #re-bundles whenever you add a gem
 gem 'guard-rspec'

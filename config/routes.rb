@@ -1,7 +1,19 @@
 DavinciMotors::Application.routes.draw do
   root :to => "cars#index"
   resources :users, only: [:new, :create]
-  resources :cars
+  resources :cars do
+    member do
+      #get '/cars/:id/claim', to: 'cars#claim'
+      get 'claim', as: 'claim'
+      get 'unclaim', as: 'unclaim'
+    end
+
+    # collection do
+    # ...
+    # end
+  end
+
+  get 'my_cars', to: 'cars#my_cars'
 
   get 'login',
     to: 'sessions#login', #goes here b/c going to use sessions controllers
@@ -13,4 +25,6 @@ DavinciMotors::Application.routes.draw do
 
   delete 'logout',
     to: 'sessions#destroy'
+
+  get '/auth/:provider/callback', to: 'sessions#oauth'
 end

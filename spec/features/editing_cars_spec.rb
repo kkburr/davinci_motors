@@ -17,8 +17,6 @@ feature "Editing Cars" do
     fill_in 'Price', with: '2500'
     click_button 'Update Car'
 
-    save_and_open_page
-
 
     within("#car_#{@car.id}") do
       expect(page).to have_content('$2,500')

@@ -1,8 +1,13 @@
 class CarsController < ApplicationController
-  before_action :set_car, only: [:show, :edit, :update, :destroy]
+  before_action :set_car, only: [:show, :edit, :update, :destroy, :claim]
 
   def index
-    @cars = Car.all
+    @cars = Car.where(user_id: nil)
+  end
+
+  def my_cars
+    @cars = Car.where(user: current_user)
+    render action: 'index'
   end
 
   def show
@@ -17,29 +22,43 @@ class CarsController < ApplicationController
 
   end
 
+  def claim
+    @car.user = current_user
+    if @car.save
+      redirect_to root_path, notice:
+      "#{@car.make} #{@car.model} has been moved to your inventory"
+    else
+      redirect_to root_path, error: 'Unable to claim car.'
+    end
+  end
+
+  #def unclaim
+  #  @car.user = current_user
+  #  if @car.rollback_active_record_state!
+  #    redirect_to my_cars_path, notice:
+  #        "#{@car.make} #{@car.model} has been moved out of your inventory"
+  #  else
+  #    redirect_to my_cars_path, error: 'Unable to unclaim car.'
+  #  end
+  #end
+
   def create
     @car = Car.new(car_params)
     #redirect_to cars_path, notice: "#{@car.year} #{@car.make} #{@car.model} created"
     if @car.save
        redirect_to root_path, notice: "#{@car.year} #{@car.make} #{@car.model} created"
-      format.json { render action: 'index', status: :created, location: @car }
     else
       render action: 'new'
-      format.json { render json: @car.errors, status: :unprocessable_entity }
     end
   end
 
   def update
-    respond_to do |format|
       if @car.update(car_params)
-        format.html { redirect_to root_path, notice: 'Car was successfully updated.' }
-        format.json { head :no_content }
+        redirect_to root_path, notice: 'Car was successfully updated.'
       else
-        format.html { render action: 'edit' }
-        format.json { render json: car.errors, status: :unprocessable_entity }
+        render action: 'edit'
       end
     end
-  end
 
   def destroy
     @car.destroy

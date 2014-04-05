@@ -14,17 +14,33 @@
   </thead>
 
   <tbody>
-  <% @cars.each do |car| %>
-      <tr id="<%= dom_id(car) %>">
-        <td><%= car.year %></td>
-        <td><%= car.make %></td>
-        <td><%= car.model %></td>
-        <td><%= number_to_currency(car.price) %></td>
-        <td><%= link_to 'Show', car %></td>
-        <td><%= link_to 'Edit', edit_car_path(car), id: "edit_car_#{car.id}" %></td>
-        <td><%= link_to 'Destroy', car, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-  <% end %>
+      <% if current_user.present? && my_cars_path %>
+      <% @cars.each do |car| %>
+          <tr id="<%= dom_id(car) %>">
+            <td><%= car.year %></td>
+            <td><%= car.make %></td>
+            <td><%= car.model %></td>
+            <td><%= number_to_currency(car.price) %></td>
+            <td><%= link_to 'Show', car %></td>
+            <td><%= link_to 'Claim', claim_car_path(car) %></td>
+            <td></td><%= link_to 'Unclaim', unclaim_car_path(car) %></tr>
+            <td><%= link_to 'Edit', edit_car_path(car), id: "edit_car_#{car.id}" %></td>
+            <td><%= link_to 'Destroy', car, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+      <% end %>
+      <% else %>
+          <% @cars.each do |car| %>
+              <tr id="<%= dom_id(car) %>">
+                <td><%= car.year %></td>
+                <td><%= car.make %></td>
+                <td><%= car.model %></td>
+                <td><%= number_to_currency(car.price) %></td>
+                <td><%= link_to 'Show', car %></td>
+                <td><%= link_to 'Edit', edit_car_path(car), id: "edit_car_#{car.id}" %></td>
+                <td><%= link_to 'Destroy', car, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+          <% end %>
+      <% end %>
   </tbody>
 </table>
 
@@ -33,4 +49,3 @@
 
 
 <%= link_to 'New Car', new_car_path %>
-

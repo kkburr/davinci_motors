@@ -2,6 +2,7 @@ require 'spec_helper'
 
 feature "Creating Cars" do
   scenario "can create a car" do
+    pending
     visit '/'
 
     click_link 'New Car'
@@ -24,7 +25,9 @@ feature "Creating Cars" do
   end
 
   #new scenario is a new database
+
   scenario "can create a second car" do
+    pending
     visit "/"
 
     click_link 'New Car'
