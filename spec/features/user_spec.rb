@@ -105,6 +105,7 @@ feature "User Authentication" do
   end
 
   scenario "allow a logged in user to unclaim a car" do
+    pending
     @user = FactoryGirl.create(:user)
     @car1 = FactoryGirl.create(:car)
     @car2 = FactoryGirl.create(:car)

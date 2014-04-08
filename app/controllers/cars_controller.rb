@@ -1,5 +1,5 @@
 class CarsController < ApplicationController
-  before_action :set_car, only: [:show, :edit, :update, :destroy, :claim]
+  before_action :set_car, only: [:show, :edit, :update, :destroy, :claim, :unclaim]
 
   def index
     @cars = Car.where(user_id: nil)
@@ -33,12 +33,12 @@ class CarsController < ApplicationController
   end
 
   def unclaim
-    @car.user = current_user
-    if @car.rollback_active_record_state!
+    @car.user_id = nil
+    if @car.save
       redirect_to my_cars_path, notice:
-          "#{@car.make} #{@car.model} has been moved out of your inventory"
+      "#{@car.make} #{@car.model} has been moved out of your inventory"
     else
-      redirect_to my_cars_path, error: 'Unable to unclaim car.'
+      redirect_to my_cars_path, error: "Can't unclaim car."
     end
   end
 

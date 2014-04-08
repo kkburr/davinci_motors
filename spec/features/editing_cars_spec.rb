@@ -9,10 +9,10 @@ feature "Editing Cars" do
 
     visit '/'
 
-    #within("#car_#{@car.id}") do
-    #  click_link 'Edit'
-    #end
-    click_link "edit_car_#{@car.id}"
+    within("#car_#{@car.id}") do
+      click_link 'Edit'
+    end
+    #click_link "edit_car_#{@car.id}"
 
     fill_in 'Price', with: '2500'
     click_button 'Update Car'
