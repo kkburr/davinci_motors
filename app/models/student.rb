@@ -7,6 +7,21 @@ class Student < ActiveRecord::Base
   scope :tweens, -> { where(date_of_birth: (13.years.ago)..(10.years.ago)).order(
       date_of_birth: :desc)}
 
+  1) Student.where(eye_color: 'blue').count
+
+  scope :height, -> {where(height: 101...200).count}
+
+  3) Student.order(:height).last
+
+  4) Student.order(:height).limit(10)
+
+  5) Student.where(:date_of_birth => [\d{4}-04-\d{2}])
+
+  6)Student.where(eye_color: 'green', hair_color: 'brown').count
+
+
+
+
   def self.seed_data!
     ages = (5..18).to_a
     heights = {
